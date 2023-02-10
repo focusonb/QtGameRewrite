@@ -3,14 +3,14 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <WinSock2.h>
-#include <QtCore>
+#include <QObject>
 
 class SocketManager : public QObject
 {
 
 	Q_OBJECT
 	
-private:
+protected:
 	SOCKADDR_IN loopAdr, clntAdr, servAdr;
 	WSADATA wsaData;
 	SOCKET hServSock;
@@ -27,16 +27,19 @@ signals:
 	void acceptConnection();
 	void joinConnection();
 
+public slots:
+	void sendStrData(std::string msgStr);
+
 public:
 	SocketManager(ADDRESS_FAMILY sin_family = AF_INET,
 		u_long address = 0x7f000001, 
 		const char* port = "8198",
 		bool BRequestConnection = true);
 
-	void sendData(const char* msg);//input
+	void sendData();//input
 	void runRecieveLoop();
 	void prepareForWaitLoop();
-	virtual void reactToMessage(const char* msg);//output
+	virtual void reactToMessage(std::string msg);//output
 	void looprecvsend();
 	inline bool getBEventMaked() const { return m_BEventMaked; }
 private:

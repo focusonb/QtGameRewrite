@@ -8,12 +8,24 @@
 #include "../../drawer/Drawer.h"
 #include "../../myFunction.h"
 
+WuziqiGameWidget::WuziqiGameWidget(GameSocketManager* gameSocketManager, DataWuziqiSpecType* dataWuziqiSpecType) :
+	GameWidget(gameSocketManager), 
+	m_dataWuziqi(dataWuziqiSpecType), 
+	message_game_end {QMessageBox::Warning, "Information", "Game End", QMessageBox::Yes, this}
+{
+	QObject::connect(&m_controllerRuleWorker, SIGNAL(workFinished()), &message_game_end, SLOT(exec()));
+	QObject::connect(this, &WuziqiGameWidget::ruleStart, &m_controllerRuleWorker, &ControllerRuleWorker::emitOperate);
+}
+
 void WuziqiGameWidget::drawOneChess(QPointF point_chess, bool BRequestConnection)
 {
 	m_dataWuziqi->insert(point_chess, BRequestConnection);
 	map<QPointF, int, cmp>* ptr_m_chesses = m_dataWuziqi->get();
 	Drawer drawer;
 	drawer.drawOneChess(BRequestConnection, point_chess, scene, m_width_chess, ptr_m_chesses, gamegoingon);
+
+	//emit m_controllerRuleWorker.operate(point_chess, ptr_m_chesses, m_width_chess, m_myCharacter);
+	emit ruleStart(point_chess, ptr_m_chesses, m_width_chess, m_myCharacter);
 }
 
 void WuziqiGameWidget::mousePressEvent(QMouseEvent* e)
@@ -42,26 +54,35 @@ void WuziqiGameWidget::handleMousePress(QMouseEvent* e)
 	QPoint pointview = ui.graphicsView->mapFromParent(pointwidget);
 	achess = ui.graphicsView->mapToScene(pointview);
 
-	string message_toopponent(std::to_string(achess.rx()) + 'a' + std::to_string(achess.ry()));
+	std::string message_toopponent(std::to_string(achess.rx()) + 'a' + std::to_string(achess.ry()));
 	//socketThread->sendachesss(message_toopponent, socketThread->getsocket());
 
 	//map<QPointF, int, cmp> temp_chesses = m_dataWuziqi.get();
 	//map<QPointF, int, cmp>* ptr_m_chesses = &temp_chesses;
-	m_dataWuziqi->insert(achess, m_myturn);
+	m_dataWuziqi->insert(achess, m_myCharacter);
 	map<QPointF, int, cmp>* ptr_m_chesses = m_dataWuziqi->get();
 
-	Drawer drawer;
-	try {
-		drawer.drawOneChess(m_myturn, achess, scene, m_width_chess, ptr_m_chesses, gamegoingon);
-	}
-	catch (std::out_of_range& e) {
-		std::cout << "std::out_of_range" << std::endl;
+	if (m_bRecieved == false) {
 		return;
 	}
-	catch (...) {
-		std::cout << "std::exception" << std::endl;
-		return;
-	}
+
+	drawOneChess(achess, m_gameSocketManager->getBRequestConnection());
+
+	//Drawer drawer;
+	//try {
+	//	drawer.drawOneChess(m_myCharacter, achess, scene, m_width_chess, ptr_m_chesses, gamegoingon);
+	//	m_bRecieved = false;
+	//}
+	//catch (std::out_of_range& e) {
+	//	std::cout << "std::out_of_range" << std::endl;
+	//	return;
+	//}
+	//catch (...) {
+	//	std::cout << "std::exception" << std::endl;
+	//	return;
+	//}
+
+	emit sendAChessData(message_toopponent);
 }
 
 QPointF WuziqiGameWidget::getLastMousePoint()
@@ -90,8 +111,8 @@ void WuziqiGameWidget::matchplayer()
 
 	//there may be a problem, that is when function getBRequestConnection() execute, the task of setting value has
 	// not been done.
-	m_myturn = m_gameSocketManager->getBRequestConnection();
-	if (m_myturn == true) {
+	m_myCharacter = m_gameSocketManager->getBRequestConnection();
+	if (m_myCharacter == true) {
 		//show message box telling seccess of matching a existting player.
 	}
 	else {

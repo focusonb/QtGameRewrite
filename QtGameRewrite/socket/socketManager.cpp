@@ -27,10 +27,18 @@ SocketManager::SocketManager(ADDRESS_FAMILY sin_family, u_long address, const ch
 	//(*((*((Threadarg_iswin*)arg)).semathree)).acquire();
 }
 
-void SocketManager::sendData(const char * msg)
+void SocketManager::sendData()
 {
 	string msgStr(msg);
 	send(hServSock, msg, sizeof(msg), 0);
+}
+
+void SocketManager::sendStrData(string msgStr)
+{
+	memset(msg, 0, msgStr.size());
+	msgStr.copy(msg, msgStr.size(), 0);
+	sendData();
+	memset(msg, 0, msgStr.size());
 }
 
 void SocketManager::runRecieveLoop()
@@ -47,6 +55,8 @@ void SocketManager::prepareForWaitLoop()
 		setRequestConnectionState();
 		newEvent = WSACreateEvent();
 		makeEvent(hServSock, newEvent, FD_READ);
+		//makeEvent(hServSock, newEvent, FD_ACCEPT);
+		//makeEvent(hServSock, newEvent, FD_CONNECT_BIT);
 		//do sth,i.e. send a fisrt message to server
 		m_BEventMaked = true;
 	}
@@ -56,7 +66,7 @@ void SocketManager::prepareForWaitLoop()
 	}
 }
 
-void SocketManager::reactToMessage(const char * msg)
+void SocketManager::reactToMessage(std::string msg)
 {
 }
 
@@ -92,8 +102,8 @@ void SocketManager::looprecvsend()
 
 		newEvent = WSACreateEvent();
 		makeEvent(hServSock, newEvent, FD_READ);
-		makeEvent(hServSock, newEvent, FD_ACCEPT);
-		makeEvent(hServSock, newEvent, FD_CONNECT_BIT);
+		//makeEvent(hServSock, newEvent, FD_ACCEPT);
+		//makeEvent(hServSock, newEvent, FD_CONNECT_BIT);
 
 		m_BEventMaked = true;
 	}
@@ -116,10 +126,12 @@ void SocketManager::looprecvsend()
 			ErrorHandling("read error\n");
 			break;
 		}
+		
 		int size = sizeof(msg);
+		memset(msg, 0, size);
 		int strlen = recv(hServSock, msg, size, 0);
-		//string recstr(msg);
-		reactToMessage(msg);
+		std::string recstr(msg);
+		reactToMessage(recstr);
 	}
 }
 

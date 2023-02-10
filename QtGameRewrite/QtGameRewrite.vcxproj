@@ -114,6 +114,7 @@
   <ItemGroup>
     <QtMoc Include="rule\RuleThread.h" />
     <QtMoc Include="socket\GameSocketManager.h" />
+    <QtMoc Include="rule\RuleWiorker.h" />
     <ClInclude Include="socket\CommonFunction.h" />
     <QtMoc Include="socket\socketManager.h" />
     <QtMoc Include="chess_board\ChessBoard.h" />

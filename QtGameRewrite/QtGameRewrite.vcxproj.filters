@@ -93,6 +93,9 @@
     <QtMoc Include="socket\GameSocketManager.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="rule\RuleWiorker.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data_base\DataWuziqi.h">

@@ -12,12 +12,20 @@ GameSocketManager::GameSocketManager(DataWuziqiSpecType* dataWuziqiSpecType):
 }
 
 
-void GameSocketManager::reactToMessage(const char* msg)
+void GameSocketManager::reactToMessage(std::string msg)
 {
-	string recstr(msg);
 	QPointF point_chess;
-	split_a(recstr, point_chess);
+	split_a(msg, point_chess);
 
 	//m_dataWuziqiSpecType->insert(point_chess, m_BRequestConnection);
-	emit recievedData(point_chess, m_BRequestConnection);
+	bool anotherSideColor = !m_BRequestConnection;
+	emit recievedData(point_chess, anotherSideColor);
+}
+
+void GameSocketManager::sendStrData(std::string msgStr)
+{
+	memset(msg, 0, sizeof(msg));
+	msgStr.copy(msg, msgStr.size(), 0);
+	sendData();
+	memset(msg, 0, sizeof(msg));
 }
