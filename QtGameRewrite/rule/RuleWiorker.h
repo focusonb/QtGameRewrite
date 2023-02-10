@@ -14,10 +14,6 @@ public slots:
         isWin = is_win(point_chess, ptrchesses, chess_width, myturn, true);
         emit resultReady(isWin);
     }
-    //void doWork() {
-    //    bool isWin;
-    //    emit resultReady(isWin);
-    //}
 
 
 signals:
@@ -33,7 +29,6 @@ public:
         RuleWorker* worker = new RuleWorker;
         worker->moveToThread(&workerThread);
         QObject::connect(&workerThread, &QThread::finished, worker, &QObject::deleteLater);
-        //QObject::connect(this, &ControllerRuleWorker::operate, worker, &RuleWorker::doWork);
         QObject::connect(this, SIGNAL(operate(QPointF , MapPoint *, qreal , bool )), worker, SLOT(doWork(QPointF , MapPoint *, qreal  , bool )));
         QObject::connect(worker, &RuleWorker::resultReady, this, &ControllerRuleWorker::handleResults);
         workerThread.start();
@@ -49,13 +44,9 @@ public slots:
         }
     };
     void emitOperate(QPointF& point_chess, MapPoint*& ptrchesses, qreal& chess_width, bool& myturn) {
-        //emit operate();
         emit operate(point_chess, ptrchesses, chess_width, myturn);
-        //emit operate(point_chess, ptrchesses, chess_width, myturn);
     }
 signals:
-    //void operate();
     void operate(QPointF point_chess, MapPoint* ptrchesses, qreal chess_width, bool myturn);
-    //void operate(QPointF& point_chess, MapPoint*& ptrchesses, qreal& chess_width, bool& myturn);
     void workFinished();
 };

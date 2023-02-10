@@ -94,9 +94,9 @@
     <ClCompile Include="chess_board\ChessBoard.cpp" />
     <ClCompile Include="data_base\DataWuziqi.cpp" />
     <ClCompile Include="drawer\Drawer.cpp" />
+    <ClCompile Include="game_palying_ui\Wuziqi\WuziqiGameWidget.cpp" />
     <ClCompile Include="rule\RuleThread.cpp" />
     <ClCompile Include="socket\GameSocketManager.cpp" />
-    <ClCompile Include="game_palying_ui\Wuziqi\WuziqiGameWidget.cpp" />
     <ClCompile Include="main_ui\QtGame.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="game_palying_ui\GameWidget.cpp" />
@@ -104,6 +104,7 @@
     <ClCompile Include="Rule\Rule.cpp" />
     <ClCompile Include="socket\CommonFunction.cpp" />
     <ClCompile Include="socket\socketManager.cpp" />
+    <ClCompile Include="game_palying_ui\Wuziqi\GameWidgetBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="main_ui\QtGame.h" />
@@ -112,16 +113,17 @@
     <QtMoc Include="game_palying_ui\GameWidget.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="game_palying_ui\Wuziqi\GameWidgetBase.h" />
     <QtMoc Include="rule\RuleThread.h" />
     <QtMoc Include="socket\GameSocketManager.h" />
     <QtMoc Include="rule\RuleWiorker.h" />
+    <QtMoc Include="game_palying_ui\Wuziqi\WuziqiGameWidget.h" />
     <ClInclude Include="socket\CommonFunction.h" />
     <QtMoc Include="socket\socketManager.h" />
     <QtMoc Include="chess_board\ChessBoard.h" />
     <ClInclude Include="comStruct.h" />
     <ClInclude Include="data_base\DataWuziqi.h" />
     <ClInclude Include="drawer\Drawer.h" />
-    <QtMoc Include="game_palying_ui\Wuziqi\WuziqiGameWidget.h" />
     <ClInclude Include="myfunction.h" />
     <ClInclude Include="Rule\Rule.h" />
   </ItemGroup>

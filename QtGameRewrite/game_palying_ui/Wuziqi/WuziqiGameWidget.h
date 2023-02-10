@@ -2,62 +2,39 @@
 #include <iostream>
 #include <qmessagebox.h>
 
-#include "GameWidget.h"
+#include "GameWidgetBase.h"
 #include "../../comStruct.h"
 #include "../../data_base/DataWuziqi.h"
 #include "../../rule/RuleWiorker.h"
 
 class GameSocketManager;
 class WuziqiGameWidget :
-    public GameWidget
+    public QMainWindow
 {
     Q_OBJECT
+public:
+    WuziqiGameWidget(GameSocketManager* gameSocketManager, DataWuziqiSpecType* dataWuziqiSpecType):
+        m_gameWidgetBase(gameSocketManager, dataWuziqiSpecType)
+    {
+        QObject::connect(&m_controllerRuleWorker, SIGNAL(workFinished()), m_gameWidgetBase.getMessageBox(), SLOT(exec()));
+        QObject::connect(this, &WuziqiGameWidget::ruleStart, &m_controllerRuleWorker, &ControllerRuleWorker::emitOperate);
+    }
+    
 private:
+    GameWidgetBase m_gameWidgetBase;
     ControllerRuleWorker m_controllerRuleWorker;
-    QMessageBox message_game_end;
-    QPointF m_mousePoint;
-    qreal m_width_chess;
-    DataWuziqiSpecType *m_dataWuziqi;
-
-    bool m_myCharacter = true;
-    bool is_matched = false;
-    QPointF achess;
-    bool mypart = false;
-    map<QPointF, int, cmp>* chesses;
-    QSemaphore* sematwo;
-    QSemaphore* semaone;
-    bool gamegoingon = true;
     bool m_bRecieved = true;
 
-    
-
 signals:
-    void getaplayer();
+    void drawOneChessNext();
     void sendAChessData(std::string s);
     void ruleStart(QPointF& point_chess, MapPoint*& ptrchesses, qreal& chess_width, bool& myturn);
+
 public slots:
-    void show_window() override;
+    void show_window();
     void drawOneChess(QPointF point_chess, bool BRequestConnection);
-    void test(std::string s){
-        std::cout << s.c_str() << std::endl;
-    }
-    void setBRecieved() {
-        m_bRecieved = true;
-    }
+    void matchplayer();
+    void setBRecieved();
 
-protected:
-    void mousePressEvent(QMouseEvent* e)override;
-    void handleMousePress(QMouseEvent* e) override;
-public:
-    void matchplayer()override;
-    WuziqiGameWidget(GameSocketManager* gameSocketManager, DataWuziqiSpecType* dataWuziqiSpecType);
-
-    QPointF getLastMousePoint();
-    qreal getWidthChess() const {
-        return m_width_chess;
-    }
-    bool getMyTurn() const {
-        return m_myCharacter;
-    }
 };
 

@@ -40,9 +40,6 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="game_palying_ui\Wuziqi\WuziqiGameWidget.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="data_base\DataWuziqi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -70,6 +67,12 @@
     <ClCompile Include="rule\RuleThread.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="game_palying_ui\Wuziqi\GameWidgetBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game_palying_ui\Wuziqi\WuziqiGameWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="main_ui\QtGame.h">
@@ -84,9 +87,6 @@
     <QtMoc Include="rule\RuleThread.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="game_palying_ui\Wuziqi\WuziqiGameWidget.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="socket\socketManager.h">
       <Filter>Header Files</Filter>
     </QtMoc>
@@ -94,6 +94,12 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="rule\RuleWiorker.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="game_palying_ui\Wuziqi\GameWidgetBase.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="game_palying_ui\Wuziqi\WuziqiGameWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

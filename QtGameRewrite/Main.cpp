@@ -19,23 +19,18 @@ int main(int argc, char* argv[])
 	
 	DataWuziqiSpecType dataWuziqiSpecType;
 	GameSocketManager gameSocketManager(&dataWuziqiSpecType);
-	//SocketManager socketManager;
 
 	WuziqiGameWidget game_sub_window(&gameSocketManager, &dataWuziqiSpecType);
 
 	QMessageBox message_1(QMessageBox::Warning, "Information", "accept a new connection request", QMessageBox::Yes, &game_sub_window);
 	QMessageBox message_2(QMessageBox::Warning, "Information", "join a new connection", QMessageBox::Yes, &game_sub_window);
 
-
-	//QObject::connect(&game_sub_window, SIGNAL(getaplayer()), &game_sub_window, SLOT(matchplayer()));
 	QObject::connect(&game_main_window, SIGNAL(open_sub_widget()), &game_sub_window, SLOT(show_window()));
 	QObject::connect(&gameSocketManager, SIGNAL(recievedData(QPointF, bool)), &game_sub_window, SLOT(drawOneChess(QPointF, bool)));
 	QObject::connect(&gameSocketManager, SIGNAL(recievedData(QPointF, bool)), &game_sub_window, SLOT(setBRecieved()));
 	QObject::connect(&gameSocketManager, SIGNAL(acceptConnection()), &message_1, SLOT(exec()));
 	QObject::connect(&gameSocketManager, SIGNAL(joinConnection()), &message_2, SLOT(exec()));
 	QObject::connect(&game_sub_window, SIGNAL(sendAChessData(std::string)), &gameSocketManager, SLOT(sendStrData(std::string)));
-	//QObject::connect(&game_sub_window, SIGNAL(sendAChessData(std::string)), &socketManager, SLOT(sendStrData(std::string)));
-	//QObject::connect(&game_sub_window, SIGNAL(sendAChessData(std::string)), &game_sub_window, SLOT(test(std::string)));
 
 
 
