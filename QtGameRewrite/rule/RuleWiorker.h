@@ -43,7 +43,7 @@ public slots:
             emit workFinished();
         }
     };
-    void emitOperate(QPointF& point_chess, MapPoint*& ptrchesses, qreal& chess_width, bool& myturn) {
+    void emitOperate(QPointF& point_chess, MapPoint* ptrchesses, qreal& chess_width, bool& myturn) {
         emit operate(point_chess, ptrchesses, chess_width, myturn);
     }
 signals:

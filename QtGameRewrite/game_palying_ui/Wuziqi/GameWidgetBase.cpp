@@ -1,9 +1,10 @@
 #include "../socket/GameSocketManager.h"
 #include "GameWidgetBase.h"
+#include <QObject>
 #include <QGraphicsEllipseItem>
 #include <iostream>
 #include <qmessagebox.h>
-//#include <thread>
+#include <thread>
 
 #include "../../drawer/Drawer.h"
 //#include "../../myFunction.h"
@@ -13,6 +14,9 @@ GameWidgetBase::GameWidgetBase(GameSocketManager* gameSocketManager, DataWuziqiS
 	m_dataWuziqi(dataWuziqiSpecType),
 	message_game_end{ QMessageBox::Warning, "Information", "Game End", QMessageBox::Yes, this }
 {
+	//QObject::connect(gameSocketManager, &GameSocketManager::recievedData, this, &GameWidgetBase::setBRecieved);
+	QObject::connect(gameSocketManager, SIGNAL(recievedData(QPointF, bool)), this, SLOT(setBRecieved()));
+	QObject::connect(gameSocketManager, SIGNAL(recievedData(QPointF, bool)), this, SLOT(drawOneChess(QPointF, bool)));
 }
 
 void GameWidgetBase::drawOneChess(QPointF point_chess, bool myCharacter)
@@ -22,9 +26,7 @@ void GameWidgetBase::drawOneChess(QPointF point_chess, bool myCharacter)
 	Drawer drawer;
 	drawer.drawOneChess(myCharacter, point_chess, scene, m_width_chess, ptr_m_chesses, gamegoingon);
 
-	emit drawOneChessNext();
-	//emit ruleStart(point_chess, ptr_m_chesses, m_width_chess, m_myCharacter);
-	//emit sendAChessData(message_toopponent);
+	emit ruleStart(point_chess, ptr_m_chesses, m_width_chess, m_myCharacter);
 }
 
 void GameWidgetBase::mousePressEvent(QMouseEvent* e)
@@ -40,11 +42,16 @@ void GameWidgetBase::handleMousePress(QMouseEvent* e)
 	QPoint pointwidget = ui.widget->mapFromParent(pointcentre);
 	QPoint pointview = ui.graphicsView->mapFromParent(pointwidget);
 	achess = ui.graphicsView->mapToScene(pointview);
-
 	std::string message_toopponent(std::to_string(achess.rx()) + 'a' + std::to_string(achess.ry()));
-	m_dataWuziqi->insert(achess, m_myCharacter);
 
-	drawOneChess(achess, m_myCharacter);
+	if (m_bRecieved == false) {
+		return;
+	}
+	
+	drawOneChess(achess, m_gameSocketManager->getBRequestConnection());
+	m_bRecieved = false;
+
+	emit sendAChessData(message_toopponent);
 }
 
 QPointF GameWidgetBase::getLastMousePoint()
@@ -54,7 +61,6 @@ QPointF GameWidgetBase::getLastMousePoint()
 
 void GameWidgetBase::show_window()
 {
-	//chesses = new map<QPointF, int, cmp>();
 	qreal height_chess;
 	this->show();
 	this->activateWindow();
@@ -79,5 +85,21 @@ void GameWidgetBase::matchplayer()
 	}
 	else {
 
+	}
+}
+void GameWidgetBase::drawOneChessUi(bool& myturn, QPointF& point_chess, QGraphicsScene* scene, qreal& chess_width, std::map<QPointF, int,
+	cmp>* ptrchesses, bool& gamegoingon) {
+	Drawer drawer;
+	try {
+		drawer.drawOneChess(m_myCharacter, achess, scene, m_width_chess, m_dataWuziqi->get(), gamegoingon);
+		m_bRecieved = false;
+	}
+	catch (std::out_of_range& e) {
+		std::cout << "std::out_of_range" << std::endl;
+		return;
+	}
+	catch (...) {
+		std::cout << "std::exception" << std::endl;
+		return;
 	}
 }

@@ -20,6 +20,6 @@ public:
 	//void drawChessBoard_(QGraphicsView* graphicsView, QGraphicsScene* scene, qreal& witdth_chess, qreal& height_chess, DataWuziqi* ptrchesses);
 	void drawChessBoard(QGraphicsView* graphicsView, QGraphicsScene* scene, qreal& witdth_chess, qreal& height_chess, DataWuziqi* ptrchesses);
 	void drawOneChess(bool& myturn, QPointF& point_chess, QGraphicsScene* scene, qreal& chess_width, std::map<QPointF, int,
-		cmp>*& ptrchesses, bool& gamegoingon);
+		cmp>* ptrchesses, bool& gamegoingon);
 };
 

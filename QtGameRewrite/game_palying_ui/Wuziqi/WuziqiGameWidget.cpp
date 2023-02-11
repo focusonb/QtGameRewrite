@@ -23,7 +23,3 @@ void WuziqiGameWidget::matchplayer()
 	m_gameWidgetBase.matchplayer();
 }
 
-void WuziqiGameWidget::setBRecieved()
-{
-	m_bRecieved = true;
-}

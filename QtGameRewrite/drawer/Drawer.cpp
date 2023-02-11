@@ -64,7 +64,7 @@ void Drawer::drawChessBoard(QGraphicsView* graphicsView, QGraphicsScene* scene, 
 }
 
 void Drawer ::drawOneChess(bool& myturn, QPointF& point_chess, QGraphicsScene* scene, qreal& chess_width, map<QPointF, int,
-	cmp>*& ptrchesses, bool& gamegoingon)
+	cmp>* ptrchesses, bool& gamegoingon)
 {
 	pointstd(point_chess, chess_width);
 
