@@ -52,9 +52,6 @@
     <ClCompile Include="Rule\Rule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="chess_board\ChessBoard.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="socket\socketManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -79,9 +76,6 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="game_palying_ui\GameWidget.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="chess_board\ChessBoard.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="rule\RuleThread.h">

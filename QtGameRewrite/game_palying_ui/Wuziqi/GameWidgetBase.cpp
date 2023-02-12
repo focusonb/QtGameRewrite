@@ -87,19 +87,4 @@ void GameWidgetBase::matchplayer()
 
 	}
 }
-void GameWidgetBase::drawOneChessUi(bool& myturn, QPointF& point_chess, QGraphicsScene* scene, qreal& chess_width, std::map<QPointF, int,
-	cmp>* ptrchesses, bool& gamegoingon) {
-	Drawer drawer;
-	try {
-		drawer.drawOneChess(m_myCharacter, achess, scene, m_width_chess, m_dataWuziqi->get(), gamegoingon);
-		m_bRecieved = false;
-	}
-	catch (std::out_of_range& e) {
-		std::cout << "std::out_of_range" << std::endl;
-		return;
-	}
-	catch (...) {
-		std::cout << "std::exception" << std::endl;
-		return;
-	}
-}
+

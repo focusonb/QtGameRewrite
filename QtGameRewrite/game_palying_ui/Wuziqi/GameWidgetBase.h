@@ -42,8 +42,7 @@ protected:
     void handleMousePress(QMouseEvent* e) override;
 public:
     GameWidgetBase(GameSocketManager* gameSocketManager, DataWuziqiSpecType* dataWuziqiSpecType);
-    void drawOneChessUi(bool& myturn, QPointF& point_chess, QGraphicsScene* scene, qreal& chess_width, std::map<QPointF, int,
-        cmp>* ptrchesses, bool& gamegoingon);
+  
 
     QPointF getLastMousePoint();
     qreal getWidthChess() const {

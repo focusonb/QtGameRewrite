@@ -91,7 +91,6 @@
     <QtUic Include="game_palying_ui\QtGame.ui" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="chess_board\ChessBoard.cpp" />
     <ClCompile Include="data_base\DataWuziqi.cpp" />
     <ClCompile Include="drawer\Drawer.cpp" />
     <ClCompile Include="game_palying_ui\Wuziqi\WuziqiGameWidget.cpp" />
@@ -120,7 +119,6 @@
     <QtMoc Include="game_palying_ui\Wuziqi\WuziqiGameWidget.h" />
     <ClInclude Include="socket\CommonFunction.h" />
     <QtMoc Include="socket\socketManager.h" />
-    <QtMoc Include="chess_board\ChessBoard.h" />
     <ClInclude Include="comStruct.h" />
     <ClInclude Include="data_base\DataWuziqi.h" />
     <ClInclude Include="drawer\Drawer.h" />
