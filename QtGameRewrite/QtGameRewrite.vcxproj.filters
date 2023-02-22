@@ -61,9 +61,6 @@
     <ClCompile Include="socket\GameSocketManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="rule\RuleThread.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="game_palying_ui\Wuziqi\GameWidgetBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -76,9 +73,6 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="game_palying_ui\GameWidget.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="rule\RuleThread.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="socket\socketManager.h">

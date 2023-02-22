@@ -94,7 +94,6 @@
     <ClCompile Include="data_base\DataWuziqi.cpp" />
     <ClCompile Include="drawer\Drawer.cpp" />
     <ClCompile Include="game_palying_ui\Wuziqi\WuziqiGameWidget.cpp" />
-    <ClCompile Include="rule\RuleThread.cpp" />
     <ClCompile Include="socket\GameSocketManager.cpp" />
     <ClCompile Include="main_ui\QtGame.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -113,7 +112,6 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="game_palying_ui\Wuziqi\GameWidgetBase.h" />
-    <QtMoc Include="rule\RuleThread.h" />
     <QtMoc Include="socket\GameSocketManager.h" />
     <QtMoc Include="rule\RuleWiorker.h" />
     <QtMoc Include="game_palying_ui\Wuziqi\WuziqiGameWidget.h" />
